@@ -21,8 +21,8 @@ with open(csvpath) as csvfile:
 
     total = int(previous[1])
     average_diff = []
-    min = 0
-    max = 0
+    minimum = 0
+    maximum = 0
     best_month = ''
     worst_month = ''
     for row in csvreader:
@@ -30,11 +30,11 @@ with open(csvpath) as csvfile:
         total = total + int(row[1])
         month_diff = int(row[1])-int(previous[1])
         average_diff.append(month_diff)
-        if month_diff >= max:
-            max = month_diff
+        if month_diff >= maximum:
+            maximum = month_diff
             best_month = row[0]
-        elif month_diff <= min:
-            min = month_diff
+        elif month_diff <= minimum:
+            minimum = month_diff
             worst_month = row[0]
           
 
@@ -51,8 +51,8 @@ with open(csvpath) as csvfile:
             return running_total / length
     
     print('Average Change: ' + str('${:,.2f}'.format(round(average(average_diff), 2))))
-    print('Greatest Increase in Profits: ' + str(best_month) + " " + '${:,.2f}'.format(max))
-    print(('Greates Decrease in Profits: ' + str(worst_month) + " " + '${:,.2f}'.format(min)))
+    print('Greatest Increase in Profits: ' + str(best_month) + " " + '${:,.2f}'.format(maximum))
+    print('Greates Decrease in Profits: ' + str(worst_month) + " " + '${:,.2f}'.format(minimum))
 
 with open (csvpath) as csvfile:   
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -63,5 +63,5 @@ with open (csvpath) as csvfile:
         txt.write("Total Months: " + str(len(list(csvreader))) + "\n")
         txt.write('Total: ' + str('${:,.2f}'.format(total)) + "\n")
         txt.write('Average Change : ' + str('${:,.2f}'.format(round(average(average_diff), 2))) + "\n")
-        txt.write('Greatest Increase in Profits: ' + str(best_month) + " " + '${:,.2f}'.format(max) + "\n")
-        txt.write('Greatest Decrease in Profits: ' + str(worst_month) + " " + '${:,.2f}'.format(min) + "\n")
+        txt.write('Greatest Increase in Profits: ' + str(best_month) + " " + '${:,.2f}'.format(maximum) + "\n")
+        txt.write('Greatest Decrease in Profits: ' + str(worst_month) + " " + '${:,.2f}'.format(minimum) + "\n")
