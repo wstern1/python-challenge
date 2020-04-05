@@ -19,17 +19,39 @@ with open(csvpath) as csvfile:
     next(csvreader)
     previous = next(csvreader)
 
-    count = 1
     total = int(previous[1])
-    averagediff = []
+    average_diff = []
     min = 0
     max = 0
+    best_month = ''
+    worst_month = ''
     for row in csvreader:
 
-        count += 1
         total = total + int(row[1])
+        month_diff = int(row[1])-int(previous[1])
+        average_diff.append(month_diff)
+        if month_diff >= max:
+            max = month_diff
+            best_month = row[0]
+        elif month_diff <= min:
+            min = month_diff
+            worst_month = row[0]
+          
+
+
         previous[1] = int(row[1])
+    
     print('Total: ' + str(total))
+
+    def average(argument):
+            length = len(argument)
+            running_total = 0
+            for number in argument:
+                running_total += number
+            return running_total / length
+    
+    print('Average Change: ' + str(round(average(average_diff), 2)))
+
 
 with open (csvpath) as csvfile:   
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -39,5 +61,4 @@ with open (csvpath) as csvfile:
         txt.writelines(H)
         txt.write(f"Total Months: {len(list(csvreader))} \n")
         txt.write(f"Total: {total} \n")
-    
-  
+        txt.write(f'Average Change : {round(average(average_diff), 2)} \n')
