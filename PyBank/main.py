@@ -41,7 +41,7 @@ with open(csvpath) as csvfile:
 
         previous[1] = int(row[1])
     
-    print('Total: ' + str(total))
+    print('Total: ' + str('${:,.2f}'.format(total)))
 
     def average(argument):
             length = len(argument)
@@ -50,8 +50,9 @@ with open(csvpath) as csvfile:
                 running_total += number
             return running_total / length
     
-    print('Average Change: ' + str(round(average(average_diff), 2)))
-
+    print('Average Change: ' + str('${:,.2f}'.format(round(average(average_diff), 2))))
+    print('Greatest Increase in Profits: ' + str(best_month) + " " + '${:,.2f}'.format(max))
+    print(('Greates Decrease in Profits: ' + str(worst_month) + " " + '${:,.2f}'.format(min)))
 
 with open (csvpath) as csvfile:   
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -59,6 +60,8 @@ with open (csvpath) as csvfile:
         txt = open("analysis/report.txt","w+")
         H = ["Financial Analysis \n", "----------------------- \n"]
         txt.writelines(H)
-        txt.write(f"Total Months: {len(list(csvreader))} \n")
-        txt.write(f"Total: {total} \n")
-        txt.write(f'Average Change : {round(average(average_diff), 2)} \n')
+        txt.write("Total Months: " + str(len(list(csvreader))) + "\n")
+        txt.write('Total: ' + str('${:,.2f}'.format(total)) + "\n")
+        txt.write('Average Change : ' + str('${:,.2f}'.format(round(average(average_diff), 2))) + "\n")
+        txt.write('Greatest Increase in Profits: ' + str(best_month) + " " + '${:,.2f}'.format(max) + "\n")
+        txt.write('Greatest Decrease in Profits: ' + str(worst_month) + " " + '${:,.2f}'.format(min) + "\n")
